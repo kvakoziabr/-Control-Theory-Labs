@@ -28,6 +28,8 @@ public class ControlScript : MonoBehaviour {
     private State state;
     private Vector3 newPosition;
     private PID pid;
+    private bool pidIsOn;
+
 	void Start () {
         mySystem = new CartSystem(Lenght, MassOfBall, MassOfCart, CalculatePower);
         cartMove = new AppliedForce(Power);
@@ -36,6 +38,10 @@ public class ControlScript : MonoBehaviour {
 	
 	void FixedUpdate () {
 
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            pidIsOn = !pidIsOn;
+        }
         if (Input.GetKey(KeyCode.D))
         {
             if (cartMove.GetPower <=0)
@@ -69,11 +75,13 @@ public class ControlScript : MonoBehaviour {
         newPosition.x = (float)state.Way;
         transform.position = newPosition;
 
-        GetComponent<UpdateUI>().UpdateUserInterface(state);
+        GetComponent<UpdateUI>().UpdateUserInterface(state, pidIsOn);
     }
 
     private double CalculatePower(double Time) 
     {
+        if (pidIsOn)
         return cartMove.GetPower + pid.GetPower(state.Angle, state.AngleDerivate);
+        return cartMove.GetPower;
     }
 }
