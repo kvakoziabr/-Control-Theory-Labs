@@ -9,7 +9,7 @@ namespace Lab1
         public double Way;//Перемещение системы
         public double Speed;//Скорость системы
         public double Angle; //Угол отклонения 
-        public double AngleDerivate; //Производная по углу
+        public double AngleDerivative; //Производная по углу
         public double Time; //Время
     }
 
@@ -52,7 +52,7 @@ namespace Lab1
             CurrentState = new State();
             CurrentState.Time = 0; //Устанавливаем текущее время равноо нулю
             CurrentState.Angle = 0;
-            CurrentState.AngleDerivate = 0;
+            CurrentState.AngleDerivative = 0;
             CurrentState.Way = 0;
             CurrentState.Speed = 0;
         }
@@ -68,16 +68,16 @@ namespace Lab1
             State IntermediateState = new State();
 
             IntermediateState.Way = CurrentState.Way + CurrentState.Speed * DeltaTime;
-            IntermediateState.Angle = CurrentState.Angle + CurrentState.AngleDerivate * DeltaTime;
+            IntermediateState.Angle = CurrentState.Angle + CurrentState.AngleDerivative * DeltaTime;
             IntermediateState.Speed = CurrentState.Speed + WaySecondDerivate(CurrentState) * DeltaTime;
-            IntermediateState.AngleDerivate = CurrentState.AngleDerivate + AngleSecodDerivate(CurrentState) * DeltaTime;
+            IntermediateState.AngleDerivative = CurrentState.AngleDerivative + AngleSecodDerivate(CurrentState) * DeltaTime;
             IntermediateState.Time = CurrentState.Time + DeltaTime;
 
             State newState = new State();
             newState.Way = CurrentState.Way + (IntermediateState.Speed + CurrentState.Speed) * DeltaTime / 2;
-            newState.Angle = CurrentState.Angle + (IntermediateState.AngleDerivate + CurrentState.AngleDerivate) * DeltaTime / 2;
+            newState.Angle = CurrentState.Angle + (IntermediateState.AngleDerivative + CurrentState.AngleDerivative) * DeltaTime / 2;
             newState.Speed = CurrentState.Speed + (WaySecondDerivate(CurrentState) + WaySecondDerivate(IntermediateState)) * DeltaTime / 2;
-            newState.AngleDerivate = CurrentState.AngleDerivate + (AngleSecodDerivate(CurrentState) + AngleSecodDerivate(IntermediateState)) * DeltaTime / 2;
+            newState.AngleDerivative = CurrentState.AngleDerivative + (AngleSecodDerivate(CurrentState) + AngleSecodDerivate(IntermediateState)) * DeltaTime / 2;
             newState.Time = IntermediateState.Time;
 
             CurrentState = newState;
@@ -89,7 +89,7 @@ namespace Lab1
             double cos = Math.Cos(state.Angle);
             double sin = Math.Sin(state.Angle);
             double time = state.Time;
-            return (-1 * a1 * sin * cos - a2 * Math.Pow(state.AngleDerivate, 2) * sin + u(time)) / (1 + a3 * Math.Pow(sin, 2));
+            return (-1 * a1 * sin * cos - a2 * Math.Pow(state.AngleDerivative, 2) * sin + u(time)) / (1 + a3 * Math.Pow(sin, 2));
         }
 
         private double AngleSecodDerivate (State state)
@@ -97,7 +97,7 @@ namespace Lab1
             double cos = Math.Cos(state.Angle);
             double sin = Math.Sin(state.Angle);
             double time = state.Time;
-            return (-1 * a4 * sin - a3 * Math.Pow(state.AngleDerivate, 2) * sin * cos + b1 * cos * u(time)) / (1 + a3 * Math.Pow(sin, 2));
+            return (-1 * a4 * sin - a3 * Math.Pow(state.AngleDerivative, 2) * sin * cos + b1 * cos * u(time)) / (1 + a3 * Math.Pow(sin, 2));
         }       
     }
 }

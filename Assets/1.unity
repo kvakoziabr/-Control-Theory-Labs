@@ -1284,11 +1284,11 @@ MonoBehaviour:
   Lenght: 1.5
   Power: 15
   MaxSpeed: 100
-  P: 2
+  P: 4
   I: 0.1
-  D: 8
+  D: 10
   Slack: 0.05
-  DesiredValue: 0
+  DesiredValue: 0.5
 --- !u!4 &1716328734 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400004, guid: 212fe7d5bf39d1545907252344f60357, type: 3}

@@ -11,7 +11,7 @@ public class UpdateUI : MonoBehaviour {
     {
         AngleText.text = state.Angle.ToString("N3");
         SpeedText.text = state.Speed.ToString("N3");
-        AngleDerivativeText.text = state.AngleDerivate.ToString("N3");
+        AngleDerivativeText.text = state.AngleDerivative.ToString("N3");
         X.text = state.Way.ToString("N3");
         if (PID)
             PIDText.text = "ON";

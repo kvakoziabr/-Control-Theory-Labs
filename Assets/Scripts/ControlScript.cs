@@ -70,7 +70,7 @@ public class ControlScript : MonoBehaviour {
 
 
         state = mySystem.CalculateStateOfSystem(Time.deltaTime);
-        Pendulum.transform.RotateAround(transform.position, Vector3.back, (float)state.AngleDerivate*Time.deltaTime*57);
+        Pendulum.transform.RotateAround(transform.position, Vector3.back, (float)state.AngleDerivative*Time.deltaTime*57);
         newPosition = transform.position;
         newPosition.x = (float)state.Way;
         transform.position = newPosition;
@@ -81,7 +81,7 @@ public class ControlScript : MonoBehaviour {
     private double CalculatePower(double Time) 
     {
         if (pidIsOn)
-        return cartMove.GetPower + pid.GetPower(state.Angle, state.AngleDerivate);
+        return cartMove.GetPower + pid.GetPower(state.Angle, state.AngleDerivative);
         return cartMove.GetPower;
     }
 }
